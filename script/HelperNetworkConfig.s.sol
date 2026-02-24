@@ -8,6 +8,7 @@ contract HelperNetworkConfig is Script {
     uint8 private constant DECIMALS = 8;
     int256 private price = 2000e8;
     NetworkConfig public activeNetworkConfig;
+
     struct NetworkConfig {
         address priceFeed;
     }
@@ -20,14 +21,8 @@ contract HelperNetworkConfig is Script {
         }
     }
 
-    function getSepoliaNetworkConfig()
-        public
-        pure
-        returns (NetworkConfig memory)
-    {
-        NetworkConfig memory sepoliaConfig = NetworkConfig({
-            priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306
-        });
+    function getSepoliaNetworkConfig() public pure returns (NetworkConfig memory) {
+        NetworkConfig memory sepoliaConfig = NetworkConfig({priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306});
         return sepoliaConfig;
     }
 
@@ -35,9 +30,7 @@ contract HelperNetworkConfig is Script {
         vm.startBroadcast();
         MockV3Aggregator mockpriceFeed = new MockV3Aggregator(DECIMALS, price);
         vm.stopBroadcast();
-        NetworkConfig memory anvilConfig = NetworkConfig({
-            priceFeed: address(mockpriceFeed)
-        });
+        NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mockpriceFeed)});
         return anvilConfig;
     }
 }

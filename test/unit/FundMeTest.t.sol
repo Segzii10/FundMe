@@ -70,10 +70,7 @@ contract FundMeTest is Test {
         uint256 EndingContractBalance = startingFundMeBalance - SEND_VALUE;
 
         assertEq(EndingContractBalance, 0);
-        assertEq(
-            EndingOwnerBalance,
-            startingFundMeBalance + startingOwnerBalance
-        );
+        assertEq(EndingOwnerBalance, startingFundMeBalance + startingOwnerBalance);
     }
 
     function testAfterWithdrawalbalance() public funded {
@@ -94,11 +91,7 @@ contract FundMeTest is Test {
         uint160 numberofaddressfunded = 10;
         uint160 startingnumberofaddressfunded = 1;
 
-        for (
-            uint160 i = startingnumberofaddressfunded;
-            i < numberofaddressfunded;
-            i++
-        ) {
+        for (uint160 i = startingnumberofaddressfunded; i < numberofaddressfunded; i++) {
             hoax(address(i), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -108,21 +101,14 @@ contract FundMeTest is Test {
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
 
-        assertEq(
-            startingOwnerBalance + startingFundMeBalance,
-            fundMe.getOwner().balance
-        );
+        assertEq(startingOwnerBalance + startingFundMeBalance, fundMe.getOwner().balance);
     }
 
     function testcheaperWithdrawalbyMultipleFunders() public funded {
         uint160 numberofaddressfunded = 10;
         uint160 startingnumberofaddressfunded = 1;
 
-        for (
-            uint160 i = startingnumberofaddressfunded;
-            i < numberofaddressfunded;
-            i++
-        ) {
+        for (uint160 i = startingnumberofaddressfunded; i < numberofaddressfunded; i++) {
             hoax(address(i), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -132,9 +118,6 @@ contract FundMeTest is Test {
         vm.prank(fundMe.getOwner());
         fundMe.Cheaperwithdraw();
 
-        assertEq(
-            startingOwnerBalance + startingFundMeBalance,
-            fundMe.getOwner().balance
-        );
+        assertEq(startingOwnerBalance + startingFundMeBalance, fundMe.getOwner().balance);
     }
 }
